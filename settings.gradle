@@ -1,0 +1,3 @@
+rootProject.name = "NBEffects"
+include ':app'
+include ':NBEffects'
