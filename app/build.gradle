@@ -43,5 +43,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+
+//    implementation 'jp.co.cyberagent.android:gpuimage:2.1.0'
     implementation project(path: ':NBEffects')
+
+    implementation 'cn.wufuqi:EasyTimer:1.0.1'
 }
