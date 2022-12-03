@@ -18,7 +18,17 @@ class WaveFilter : BaseFilter(R.raw.wave_filter_fragment_shader) {
         setUniform("iOffset", Vec2(offsetX, offsetY))
     }
 
-    override fun onUpdateDrawFrame(dt:Long) {
+
+    override fun setMatrix(left: Float, right: Float, bottom: Float, top: Float) {
+        super.setMatrix(
+            left + offsetX / 10,
+            right - offsetX / 10,
+            bottom + offsetY / 10,
+            top - offsetY / 10
+        )
+    }
+
+    override fun onUpdateDrawFrame(dt: Long) {
         if (time >= Float.MAX_VALUE - 1) {
             time = 0.0f
         }

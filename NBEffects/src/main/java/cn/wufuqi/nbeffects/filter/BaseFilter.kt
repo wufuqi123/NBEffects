@@ -8,6 +8,7 @@ import android.os.SystemClock
 import android.util.Log
 import androidx.annotation.CallSuper
 import cn.wufuqi.nbeffects.Constants
+import cn.wufuqi.nbeffects.NBEffectsImageView
 import cn.wufuqi.nbeffects.OpenGLImageRenderType
 import cn.wufuqi.nbeffects.R
 import cn.wufuqi.nbeffects.bean.*
@@ -21,9 +22,15 @@ import cn.wufuqi.nbeffects.utils.TextureUtils.loadTexture
 import java.nio.FloatBuffer
 import java.nio.ShortBuffer
 
+/**
+ * 基本的Filter
+ */
 open class BaseFilter : RendererFilter {
 
-    private val TAG = "RendererFilter"
+    companion object {
+        const val TEXTURE_LOCATION_NAME = "uTextureUnit"
+        const val TAG = "RendererFilter"
+    }
 
     private var vertexBuffer: FloatBuffer
     private var mTexVertexBuffer: FloatBuffer
@@ -32,7 +39,7 @@ open class BaseFilter : RendererFilter {
 
     var mProgram = 0
 
-    private var textureId = 0
+    var textureId = 0
 
 
     private var uMatrixLocation = 0
@@ -58,6 +65,7 @@ open class BaseFilter : RendererFilter {
 
     var lastTime = 0L
 
+    var textureCount = 0
     /**
      * 加载默认的着色器
      */
@@ -95,9 +103,15 @@ open class BaseFilter : RendererFilter {
         uMatrixLocation = GLES30.glGetUniformLocation(mProgram, "u_Matrix")
         mUniformMap.forEach { v ->
             v.value.location = GLES30.glGetUniformLocation(mProgram, v.key)
+            if (v.value is Texture) {
+                val texture = v.value as Texture
+                texture.textureId = loadTexture(texture.bitmap)
+            }
         }
         //加载纹理
         textureId = loadTexture(bitmap)
+
+//        textureLocation =
     }
 
 
@@ -119,7 +133,7 @@ open class BaseFilter : RendererFilter {
     @CallSuper
     override fun onSurfaceCreated() {
         //设置背景颜色
-        GLES30.glClearColor(0.5f, 0.5f, 0.5f, 0.5f)
+//        GLES30.glClearColor(0.5f, 0.5f, 0.5f, 0.5f)
         //初始化程序对象
         setupProgram()
         lastTime = SystemClock.uptimeMillis()
@@ -131,8 +145,10 @@ open class BaseFilter : RendererFilter {
         height: Int,
         bitmapWidth: Int,
         bitmapHeight: Int,
-        renderType: OpenGLImageRenderType
+        renderType: OpenGLImageRenderType,
+        view: NBEffectsImageView?
     ) {
+
         GLES30.glViewport(0, 0, width, height)
         var left = -1f
         var right = 1f
@@ -191,6 +207,23 @@ open class BaseFilter : RendererFilter {
         onUpdateDrawFrame(currTime - lastTime)
         lastTime = currTime
 
+
+
+
+        GLES30.glUniformMatrix4fv(uMatrixLocation, 1, false, mMatrix, 0)
+
+
+
+        GLES30.glEnableVertexAttribArray(0)
+        GLES30.glVertexAttribPointer(0, 3, GLES30.GL_FLOAT, false, 0, vertexBuffer)
+        GLES30.glEnableVertexAttribArray(1)
+        GLES30.glVertexAttribPointer(1, 2, GLES30.GL_FLOAT, false, 0, mTexVertexBuffer)
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
+        //绑定纹理
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureId)
+//        GLES30.glUniform1i(GLES30.glGetUniformLocation(mProgram, TEXTURE_LOCATION_NAME), textureId)
+
+
         // 设置  Uniform
         mUniformMap.forEach { v ->
             when (val value = v.value) {
@@ -209,21 +242,14 @@ open class BaseFilter : RendererFilter {
                 is UniformFloat -> {
                     GLES30.glUniform1f(value.location, value.value)
                 }
+                is Texture -> {
+                    GLES30.glActiveTexture(GLES30.GL_TEXTURE0 + value.textureId)
+                    GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, value.textureId)
+                    //绑定纹理
+                    GLES30.glUniform1i(value.location, value.textureId)
+                }
             }
         }
-
-
-        GLES30.glUniformMatrix4fv(uMatrixLocation, 1, false, mMatrix, 0)
-
-
-
-        GLES30.glEnableVertexAttribArray(0)
-        GLES30.glVertexAttribPointer(0, 3, GLES30.GL_FLOAT, false, 0, vertexBuffer)
-        GLES30.glEnableVertexAttribArray(1)
-        GLES30.glVertexAttribPointer(1, 2, GLES30.GL_FLOAT, false, 0, mTexVertexBuffer)
-        GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
-        //绑定纹理
-        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textureId)
 
         // 绘制
         GLES20.glDrawElements(
@@ -234,7 +260,7 @@ open class BaseFilter : RendererFilter {
         )
     }
 
-    open fun onUpdateDrawFrame(dt:Long) {}
+    open fun onUpdateDrawFrame(dt: Long) {}
 
     override fun onDestroy() {
         GLES30.glDeleteProgram(mProgram)

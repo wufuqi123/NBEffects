@@ -3,28 +3,38 @@ package cn.wufuqi.nbeffects
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.opengl.GLSurfaceView
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
+import android.widget.FrameLayout
 import cn.wufuqi.nbeffects.filter.RendererFilter
-import cn.wufuqi.nbeffects.renderer.FilterRenderer
+import cn.wufuqi.nbeffects.renderer.GLRender
+import cn.wufuqi.nbeffects.renderer.NBGLSurfaceView
+import cn.wufuqi.nbeffects.renderer.NBTextureView
 import cn.wufuqi.nbeffects.utils.BitmapUtils
 
 
-class NBEffectsImageView : GLSurfaceView {
+class NBEffectsImageView : FrameLayout, GLRender {
 
-    constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        setupSurfaceView()
-    }
-
-
-    private lateinit var mGLRender: FilterRenderer
 
     var renderType = OpenGLImageRenderType.AUTO_NO_BACK
 
-    var isAddRender = false
+    lateinit var mGLRender: GLRender
+
+    constructor(context: Context) : this(context, null)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        initView(context)
+    }
+
+    private fun initView(context: Context) {
+        mGLRender = NBGLSurfaceView(context)
+        addView(mGLRender as View)
+    }
 
 
     /**
@@ -35,78 +45,48 @@ class NBEffectsImageView : GLSurfaceView {
      * EQUAL_HEIGHT                 等高的
      * AUTO_NO_BACK                 自适应，不留黑边  （默认）
      */
-    fun setOpenGLImageRenderType(type: OpenGLImageRenderType) {
+    override fun setOpenGLImageRenderType(type: OpenGLImageRenderType) {
         renderType = type
         mGLRender.setOpenGLImageRenderType(type)
-        requestRender()
     }
 
-    fun setImageBitmap(
+    override fun setImageBitmap(
         bitmap: Bitmap,
-        type: OpenGLImageRenderType = renderType
+        type: OpenGLImageRenderType
     ) {
-        mGLRender.setImage(bitmap)
-        mGLRender.setOpenGLImageRenderType(type)
-        requestRender()
+        mGLRender.setImageBitmap(bitmap, type)
     }
 
-    fun setImageDrawable(
+    override fun setImageDrawable(
         drawable: Drawable,
-        type: OpenGLImageRenderType = renderType
+        type: OpenGLImageRenderType
     ) {
         setImageBitmap(BitmapUtils.drawableToBitmap(drawable), type)
     }
 
 
-    fun setImageRes(
+    override fun setImageRes(
         resourceId: Int,
-        type: OpenGLImageRenderType = renderType
+        type: OpenGLImageRenderType
     ) {
         setImageBitmap(BitmapUtils.getBitmap(resourceId)!!, type)
     }
 
 
-    private fun setupSurfaceView() {
-        //设置版本
-        setEGLContextClientVersion(3)
-        mGLRender = FilterRenderer()
+    /**
+     * 设置滤镜
+     */
+    override fun setFilter(filter: RendererFilter?) {
+        mGLRender.setFilter(filter)
     }
 
     /**
-     * 设置滤镜
-     * 滤镜由于可能存在多种类型
-     * 这里抽象了一个基础的滤镜类
-     * queueEvent
-     *
-     * @param baseFilter
+     * 设置true后  view 将会被置顶显示
+     * 设置false  view可能会有黑边
      */
-    fun setFilter(filter: RendererFilter?) {
-        mGLRender.setFilter(filter)
-        requestRender()
+    override fun setTranslucent(translucent: Boolean) {
+        mGLRender.setTranslucent(translucent)
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        setRenderer(mGLRender)
-        isAddRender = true
-        requestRender()
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        setRenderer(null)
-        isAddRender = false
-        mGLRender.destroy()
-    }
-
-    override fun requestRender() {
-        try {
-            if (isAddRender) {
-                super.requestRender()
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
 }

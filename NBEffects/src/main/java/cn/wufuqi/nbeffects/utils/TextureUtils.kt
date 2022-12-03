@@ -2,6 +2,7 @@ package cn.wufuqi.nbeffects.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.opengl.GLES30
 import android.opengl.GLES30.*
 import android.opengl.GLUtils
 import android.util.Log
@@ -42,12 +43,14 @@ object TextureUtils {
         // 生成MIP贴图
         glGenerateMipmap(GL_TEXTURE_2D)
 
-        // 数据如果已经被加载进OpenGL,则可以回收该bitmap
-        bitmap.recycle()
+//        // 数据如果已经被加载进OpenGL,则可以回收该bitmap
+//        bitmap.recycle()
 
         // 取消绑定纹理
         glBindTexture(GL_TEXTURE_2D, 0)
 
         return textureIds[0]
     }
+
+
 }

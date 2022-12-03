@@ -2,6 +2,7 @@ package cn.wufuqi.nbeffects.renderer
 
 import android.graphics.Bitmap
 import android.opengl.GLSurfaceView
+import cn.wufuqi.nbeffects.NBEffectsImageView
 import cn.wufuqi.nbeffects.OpenGLImageRenderType
 import cn.wufuqi.nbeffects.filter.BaseFilter
 import cn.wufuqi.nbeffects.filter.RendererFilter
@@ -19,6 +20,8 @@ class FilterRenderer : GLSurfaceView.Renderer {
 
     var bitmap: Bitmap = BitmapUtils.getTransparentBitmap()
     var renderType = OpenGLImageRenderType.FLEX
+
+    var view: NBEffectsImageView? = null
 
     var bitmapWidth = bitmap.width
     var bitmapHeight = bitmap.width
@@ -41,7 +44,7 @@ class FilterRenderer : GLSurfaceView.Renderer {
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
         mSurfaceWidth = width
         mSurfaceHeight = height
-        mTargetFilter.onSurfaceChanged(width, height, bitmapWidth, bitmapHeight, renderType)
+        mTargetFilter.onSurfaceChanged(width, height, bitmapWidth, bitmapHeight, renderType,view)
     }
 
     override fun onDrawFrame(gl: GL10?) {
@@ -58,7 +61,8 @@ class FilterRenderer : GLSurfaceView.Renderer {
             mSurfaceHeight,
             bitmapWidth,
             bitmapHeight,
-            renderType
+            renderType,
+            view
         )
     }
 
@@ -68,6 +72,7 @@ class FilterRenderer : GLSurfaceView.Renderer {
 
     fun destroy(){
         mTargetFilter.onDestroy()
+        view = null
     }
 
 }

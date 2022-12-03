@@ -1,6 +1,7 @@
 package cn.wufuqi.nbeffects.filter
 
 import android.graphics.Bitmap
+import cn.wufuqi.nbeffects.NBEffectsImageView
 import cn.wufuqi.nbeffects.OpenGLImageRenderType
 
 interface RendererFilter {
@@ -8,7 +9,7 @@ interface RendererFilter {
     /**
      *  bitmap
      */
-    var bitmap:Bitmap
+    var bitmap: Bitmap
 
     /**
      * 创建回调
@@ -21,7 +22,14 @@ interface RendererFilter {
      * @param width
      * @param height
      */
-    fun onSurfaceChanged(width: Int, height: Int,bitmapWidth:Int,bitmapHeight:Int,renderType: OpenGLImageRenderType)
+    fun onSurfaceChanged(
+        width: Int,
+        height: Int,
+        bitmapWidth: Int,
+        bitmapHeight: Int,
+        renderType: OpenGLImageRenderType,
+        view: NBEffectsImageView?
+    )
 
     /**
      * 绘制回调

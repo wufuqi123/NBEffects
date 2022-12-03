@@ -48,4 +48,5 @@ dependencies {
     implementation project(path: ':NBEffects')
 
     implementation 'cn.wufuqi:EasyTimer:1.0.1'
+    implementation 'cn.wufuqi:WuKongAnimation:1.0.4'
 }
