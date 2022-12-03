@@ -10,7 +10,7 @@ uniform float dissolve;
 
 void main(void){
     vec4 c = texture(uTextureUnit,vTexCoord);
-    if(c.g <= dissolve)
+    if(c.g < dissolve)
     {
         discard;
     }

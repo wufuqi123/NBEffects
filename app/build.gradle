@@ -49,4 +49,5 @@ dependencies {
 
     implementation 'cn.wufuqi:EasyTimer:1.0.1'
     implementation 'cn.wufuqi:WuKongAnimation:1.0.4'
+    implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
 }
