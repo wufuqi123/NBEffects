@@ -16,7 +16,7 @@ class MosaicFilter : BaseFilter(R.raw.mosaic_filter_fragment_shader) {
      * 方形马赛克的宽高大小  px
      * 0 - 屏幕大小
      */
-    var mosaicSize = 0f
+    var mosaicSize = 50f
 
 
     override fun onSurfaceChanged(

@@ -32,9 +32,17 @@ class MainActivity : AppCompatActivity() {
 
         val img = findViewById<NBEffectsImageView>(R.id.iv_gpu)
         img.setImageRes(R.drawable.fj)
-//        val t = RadialBlurFilter()
-//        t.size = 50f
-//        img.setFilter(t)
+
+        EasyTimer().scheduleOneUI(2000){
+
+            val t = ZoomBlurTransferFilter()
+//            t.fadeOut(2000) {
+//                t.fadeIn(2000)
+//            }
+            t.transferAmin(4000)
+            img.setFilter(t)
+        }
+
         img.setTranslucent(true)
 
     }
