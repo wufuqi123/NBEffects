@@ -19,6 +19,8 @@ import cn.wufuqi.nbeffects.utils.ShaderUtils.linkProgram
 import cn.wufuqi.nbeffects.utils.ShaderUtils.loadFragmentShader
 import cn.wufuqi.nbeffects.utils.ShaderUtils.loadVertexShader
 import cn.wufuqi.nbeffects.utils.TextureUtils.loadTexture
+import com.wukonganimation.tween.Tween
+import com.wukonganimation.tween.TweenManager
 import java.nio.FloatBuffer
 import java.nio.ShortBuffer
 
@@ -31,6 +33,8 @@ open class BaseFilter : RendererFilter {
         const val TEXTURE_LOCATION_NAME = "uTextureUnit"
         const val TAG = "RendererFilter"
     }
+
+    private var mTween: Tween? = null
 
     private var vertexBuffer: FloatBuffer
     private var mTexVertexBuffer: FloatBuffer
@@ -66,6 +70,7 @@ open class BaseFilter : RendererFilter {
     var lastTime = 0L
 
     var textureCount = 0
+
     /**
      * 加载默认的着色器
      */
@@ -260,9 +265,28 @@ open class BaseFilter : RendererFilter {
         )
     }
 
+    fun aminFilterValue(
+        time: Long,
+        propertyName: String,
+        propertyValue: Number,
+        callback: (() -> Unit)? = null
+    ) {
+        mTween?.remove()
+        mTween = TweenManager.builderOne(this)
+            .to(mutableMapOf(propertyName to propertyValue))
+            .time(time)
+            .on(TweenManager.EVENT_END) {
+                callback?.invoke()
+            }
+            .start()
+    }
+
+
     open fun onUpdateDrawFrame(dt: Long) {}
 
     override fun onDestroy() {
+        mTween?.remove()
+        mTween = null
         GLES30.glDeleteProgram(mProgram)
     }
 }

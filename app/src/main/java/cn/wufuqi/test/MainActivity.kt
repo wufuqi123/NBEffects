@@ -8,6 +8,9 @@ import cn.wufuqi.easytimer.EasyTimer
 import cn.wufuqi.nbeffects.NBEffectsImageView
 import cn.wufuqi.nbeffects.OpenGLImageRenderType
 import cn.wufuqi.nbeffects.filter.*
+import cn.wufuqi.nbeffects.pixijs_filter.AdjustmentFilter
+import cn.wufuqi.nbeffects.pixijs_filter.AsciiFilter
+import cn.wufuqi.nbeffects.pixijs_filter.BevelFilter
 import com.gyf.immersionbar.ImmersionBar
 import com.wukonganimation.tween.TweenManager
 
@@ -29,21 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         val img = findViewById<NBEffectsImageView>(R.id.iv_gpu)
         img.setImageRes(R.drawable.fj)
-        EasyTimer().scheduleOneUI(2000) {
-            val filter = DissolveFilter()
-            img.setFilter(filter)
-//            TweenManager.builderOne(filter)
-//                .from(mutableMapOf("dissolve" to 0f))
-//                .to(mutableMapOf("dissolve" to 1f))
-//                .time(4000)
-//                .pingPong(true)
-//                .repeat(-1)
-//                .start()
-            filter.fadeOut(5000){
-
-                        filter.fadeIn(5000)
-            }
-        }
+//        val t = RadialBlurFilter()
+//        t.size = 50f
+//        img.setFilter(t)
         img.setTranslucent(true)
 
     }
