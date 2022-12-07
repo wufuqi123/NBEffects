@@ -93,7 +93,7 @@
 
 #### DissolveFilter
 演示：
-![DissolveFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/DissolveFilter.gif)
+![DissolveFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/DissolveFilter.gif)
 
 使用方式
 
@@ -116,7 +116,7 @@
 
 #### DynamicBlurTransferFilter
 演示：
-![DynamicBlurTransferFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/DynamicBlurTransferFilter.gif)
+![DynamicBlurTransferFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/DynamicBlurTransferFilter.gif)
 
 使用方式
 
@@ -139,7 +139,7 @@
 
 #### GaussBlursFilter
 演示：
-![GaussBlursFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/GaussBlursFilter.png)
+![GaussBlursFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/GaussBlursFilter.png)
 
 使用方式
 
@@ -155,7 +155,7 @@
 
 #### GrayFilter
 演示：
-![GrayFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/GrayFilter.png)
+![GrayFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/GrayFilter.png)
 
 使用方式
 
@@ -168,7 +168,7 @@
 
 #### MosaicFilter
 演示：
-![MosaicFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/MosaicFilter.png)
+![MosaicFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/MosaicFilter.png)
 
 使用方式
 
@@ -183,7 +183,7 @@
 
 #### QuarterMirrorFilter
 演示：
-![QuarterMirrorFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/QuarterMirrorFilter.png)
+![QuarterMirrorFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/QuarterMirrorFilter.png)
 
 
 使用方式
@@ -196,7 +196,7 @@
 
 #### RadialBlurFilter
 演示：
-![RadialBlurFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/RadialBlurFilter.png)
+![RadialBlurFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/RadialBlurFilter.png)
 
 使用方式
 
@@ -211,7 +211,7 @@
 
 #### RainFilter
 演示：
-![RainFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/RainFilter.gif)
+![RainFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/RainFilter.gif)
 
 使用方式
 
@@ -225,7 +225,7 @@
 
 #### UnfoldTransferFilter
 演示：
-![UnfoldTransferFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/UnfoldTransferFilter.gif)
+![UnfoldTransferFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/UnfoldTransferFilter.gif)
 
 使用方式
 
@@ -251,7 +251,7 @@
 
 #### WaterFilter
 演示：
-![WaterFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/WaterFilter.gif)
+![WaterFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/WaterFilter.gif)
 
 使用方式
 
@@ -263,7 +263,7 @@
 
 #### WaveFilter
 演示：
-![WaveFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/WaveFilter.gif)
+![WaveFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/WaveFilter.gif)
 
 使用方式
 
@@ -277,7 +277,7 @@
 
 #### WindowTransferFilter
 演示：
-![WindowTransferFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/WindowTransferFilter.gif)
+![WindowTransferFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/WindowTransferFilter.gif)
 
 
 使用方式
@@ -301,7 +301,7 @@
 
 #### ZoomBlurTransferFilter
 演示：
-![ZoomBlurTransferFilter](https://raw.githubusercontent.com/wufuqi123/NBEffects/master/img/ZoomBlurTransferFilter.gif)
+![ZoomBlurTransferFilter](https://gitlab.com/wufuqi123/NBEffects/-/raw/master/img/ZoomBlurTransferFilter.gif)
 
 
 使用方式
